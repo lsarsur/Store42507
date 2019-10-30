@@ -1,0 +1,23 @@
+<p255>
+<div class="DivHomeProd" <DataAttribute> id="DivProd<prodId>">
+  <div class="DivHomeImagemProd" id="DivImagemProdDouble<prodId>" onclick="NoCascate('<URLProd>');"></div>
+  <div class="DivHomeNomeProd" onclick="NoCascate('<URLProd>');">
+    <span class="HomeNomeProd text-overflow font-regular"><prodName></span>
+  </div>
+  <div class="DivHomePriceProd" style="white-space:nowrap;" onclick="NoCascate('<URLProd>');">
+    <div id="idProdPrice<prodId>"></div> 
+    <div class="PriceAVistaLista" id="ProdDesc<prodId>"></div>
+  </div>
+  <div class="home-spy-details-container">
+    <div class="DivHomeSpy" onclick='bCascate=true;FCLib$.OpenRWD("<url-prod-id><prodId>&sty=9&int=1","Disp","width=700,height=700")'><a href="#Spy" rel="nofollow"><img  src="<storePath>images/icon-preview.svg?cccfc=1" width="25" height="25" alt="Fast Preview" title="Fast Preview"></a></div>
+    <div class="DivHomeDetails"><a href="<URLProd>"><img  src="<storePath>images/icon-more-details.svg?cccfc=1" width="25" height="25" alt="More details" title="More details"></a></div>
+    <div class="DivHome-wishlist"><wishlist></div>
+  </div>
+</div>
+<script>
+FCLib$.onReady(function(){
+  sF$.fnChangeImages("<prodImgMain>","<prodImgDet>","<URLProd>","<prodId>","<prodNameFU>");
+  sF$.fnShowProd(<prodPriceNum>,<prodPriceOri>,'<prodRef>',<prodMaxInstallmentNum>,<prodId>)
+});
+</script>
+</p255>
