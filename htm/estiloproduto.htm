@@ -1,0 +1,263 @@
+<!-- estiloproduto.htm : Grid v2 2019  (Store 2) -->
+<ProdTop>
+<link href="<PathTo file="htm/css/fc_grid_v1.css">" rel="stylesheet" type="text/css">
+<script src="<PathTo file="htm/js/fc_grid_v1.js">"></script>
+<script>var IsFramePage=false;</script>
+
+<!-- Script Filters -->
+<script>
+iQtdProds=<QtProd>;
+FCLib$.onReady(function(){
+  if(iQtdProds=="1"){
+    var sPages=sF$.fnGetID("idPageCountFC");
+    if(sPages)sPages.style.display="none";
+  }
+});
+OffsetAutoPagFC=290;
+var bTemSub=false;
+</script>
+
+<div id="filter-offcanvas-overlay" onclick="filterCloseNav();"></div>
+<div id="filterSidenav" class="filter-sidenav font-regular">
+  <div class="closebtn" onclick="filterCloseNav();"><img alt="Close" id="list-filters-close" src="<PathTo file="images/icon-menu-close-filter.svg">" width=35 height=35></div>
+  <div id="ProductsFilterFCMobile" data-include-css="false"></div>
+</div>
+
+<div id="idMobileFilters">
+  <div class="fc-mobile-filters-left" id="fc-mobile-dynamic-filter">
+    <div onclick="filterOpenNav();"><b><var key="list-filters-title"></var></b></div>
+  </div>
+  <div class="fc-mobile-filters-right">
+    <div id="idPagProdTop"></div>
+  </div>
+</div>
+</ProdTop>
+
+<ProdList>
+<!-- Prod List -->
+<FormProd>
+  <div class="DivListProd" <DataAttribute> id="DivProd<prodId>">
+    <div class="DivProductListProd">
+      <div class="DivProductListImagemProd" id="DivImagemProdDouble<prodId>" onclick="NoCascate('<URLProd>');"></div>
+      <div class="DivProductListNomeProd" onclick="NoCascate('<URLProd>');">
+        <span class="ProductListNomeProd text-overflow font-regular"><prodName></span>
+      </div>
+      <div class="DivProductListPriceProd" style="white-space:nowrap;" onclick="NoCascate('<URLProd>');">
+        <div id="idProdPrice<prodId>"></div> 
+        <div class="PriceAVistaLista" id="ProdDesc<prodId>"></div>
+      </div>
+      <div class="prodlist-spy-details-container">
+        <div class="DivProdListSpy"><a href="#Spy" rel="nofollow" onclick='bCascate=true;FCLib$.OpenRWD("<url-prod-id><prodId>&sty=9&int=1","Disp","width=700,height=700")'><img src="<storePath>images/icon-preview.svg?cccfc=1" width=25 height=25 alt="Fast Preview"></a></div>
+        <div class="DivProdListDetails"><a href="<URLProd>"><img src="<storePath>images/icon-more-details.svg?cccfc=1" width=25 height=25 alt="View details"></a></div>
+        <div class="ProductList-wishlist"><wishlist></div>
+      </div>
+    </div>
+    <div id="zFProdSoldOut<prodId>"></div>
+    <script>IDProdutoPai=<prodId>;var iEstoqueSubs=0;var bTemSubs=false;</script>
+    <sub>
+      <script>iEstoqueSubs=iEstoqueSubs+<prodStock>;bTemSubs=true;</script>
+    </sub>
+  </div>
+  <div class="det-product-img-name-container-two det-product-fixed-remove" id="det-product-tab3-label"></div>
+</FormProd>
+<script>
+function fnProd<prodId>(){
+  sF$.fnChangeImages("<prodImgMain>","<prodImgDet>","<URLProd>","<prodId>","<prodNameFU>");
+  sF$.fnShowProd(<prodPriceNum>,<prodPriceOri>,'<prodRef>',<prodMaxInstallmentNum>,<prodId>);
+};
+if(iPagProdFC==0)FCLib$.onReady(function(){fnProd<prodId>();}); else fnProd<prodId>();
+sF$.fnGetSubProductSoldOutID(<prodId>,iEstoqueSubs,bTemSubs);
+sF$.fnGetProductSoldOutID(<prodId>,<prodStock>);
+</script>
+</ProdList>
+
+<ProdDet>
+<!-- Prod Det -->
+<link rel="stylesheet" type="text/css" href="/js/MagicToolbox/MagicZoomPlusV2/magiczoomplus.css" />
+<script type="text/javascript" src="/js/MagicToolbox/MagicZoomPlusV2/magiczoomplus.js"></script>
+
+<div class="det-product-container">
+  <div id="idBreadcrumb" class="font-regular">
+    <ul>
+      <li><a href="<url-categories>" class="ProductStyleBreadCrumblinkFC"><var key="details-departments-title"></var></a></li>
+      <li><PathCat></li>
+    </ul>
+  </div>
+
+  <br>
+  <div class="det-product-img-name-container-new">
+    <div class="det-product-img-name-container-full-new">
+      <div class="det-product-img-name-container-one zoom-gallery image-zoom-size" id="idDivGridImg"></div>
+    </div>
+
+    <div class="det-product-img-name-container-two-new">
+      <div class="det-product-release"><prodRelease></div>
+      <div><h1 id="idNameProductGridFC"><prodName></h1></div>
+      <div class="DivProductDet-sku">
+        SKU: <small id="idCodProdGrid"><prodRef></small>
+        <div class="det-product-show-product-review-icons"></div>
+        <script type="text/javascript">
+          iQtdOp=<OpiniaoQtd>;
+          var showQtdReviewStars = document.querySelectorAll(".det-product-show-product-review-icons");
+          for (i = 0; i < showQtdReviewStars.length; i++) {
+            if(iQtdOp==0){showQtdReviewStars[i].innerHTML = "<a href='<url-product-review><prodId>' aria-label='review'><div class='ProductStyleReviewOffBoxFC'><div class='NotaOpiniaoVazio NotaOpiniaoVazio1'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio2'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio3'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio4'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio5'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio6'></div></div></a>";}
+            else{showQtdReviewStars[i].innerHTML = "<a href='<url-product-review><prodId>' aria-label='review'><div class='ProductStyleReviewOnBoxFC'><div class='ProductStyleReviewStarsOnFC'><prodAverageReviews></div></a><div class='ProductStyleReviewQtyOnFC'>(<a href='#OP' style='text-decoration:none;'><prodReviewsQty></a>)</div></div>";}
+          } 
+        </script>
+      </div>
+      <div class="det-product-filters"><ProdFilters></div>
+      <!-- Stock -->
+      <div class="product-details-show-stock-container">
+        <div id="product-details-show-stock"></div>
+          <script type="text/javascript">
+          FCLib$.onReady(function(){
+            var sStockProduct=<Estoque>;
+            fnGetStockProduct(sStockProduct);});
+          </script>
+      </div>
+      <!-- Date prom -->
+      <div class="product-details-data-prom">
+        <div id="DataProm"></div>
+        <script type="text/javascript">
+        var sDateTime="<DataPromFim>";
+        FCLib$.onReady(function(){fnShowDateProm(sDateTime);});
+        </script>
+      </div>
+      <div>
+        <p class="prod-price" id="idPriceGridFC<prodId>">
+          <prodPriceSimple>
+        </p>
+        <script>
+          FCLib$.onReady(function(){
+            var e=document.getElementById("idPriceGridFC<prodId>");
+            if(e)e.innerHTML += fnMaxInstallmentsGrid(<prodPriceNum>,<prodMaxInstallmentNum>) + fnShowEconomyGrid(<prodPriceNum>,<prodPriceOri>);
+          });
+        </script>
+      </div>
+      <p id="idPriceAVista">
+        <script>FCLib$.onReady(function(){sF$.fnMostraDescontoProdDet(<prodPriceNum>);});</script>
+      </p>
+      <div class="FCGridMain" id="idMainGridFC_<prodId>"></div>
+      <div class="det-product-recommend">
+        <a href="javascript:MostraIndique(<IDLoja>,<IDProduto>)"><img src="<storePath>images/iconprodemail.svg?cccfc=1" width=25 height=25 alt="Recommend product"><span><var key="details-recommend-product"></var><span></a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="det-product-description-container-full">
+<div class="det-product-description-container">
+  <input id="det-product-tab1" type="radio" name="tabs" checked>
+  <label id="det-product-tab1-label" for="det-product-tab1" class="font-bold"><h2><var key="details-description-title"></var></h2></label>
+  <input id="det-product-tab2" type="radio" name="tabs">
+  <label id="det-product-tab2-label" for="det-product-tab2" class="font-bold"><div class="details-reviews-tab-quantity"><h2><var key="details-reviews-title"></var></h2><span>(<prodReviewsQty>)</span></div></label>
+  <input id="det-product-tab3" type="radio" name="tabs">
+  <label id="det-product-tab3-label" for="det-product-tab3" class="font-bold"><h2><var key="details-zipcode-title"></var></h2></label>
+  <div id="det-product-description-tab" class="font-regular">
+    <div class="ProductStyleBoxDescriptionFC">
+      <prodDescription>
+    </div>
+    <div class="ProductStyleBoxDescriptionFC">
+       <DescrHTM>
+    </div>
+    <div class="ProductStyleBoxDescriptionFC">
+       <DescrURL>
+    </div>
+    <div class="ProductStyleBoxDescriptionFC">
+       <BarCode>
+    </div>
+  </div>
+  <div id="det-product-review-tab">
+    <div class="det-product-reviews">
+      <Comments>
+    </div>
+  </div>
+  <div id="det-product-zipcode-tab">
+      <div class="FreightContainerFC" id="det-zipcode-container">
+        <div id="ShowCEP<prodId>"></div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="det-product-fixed-remove" id="det-product-fixed-remove"></div>
+<div class="det-product-buytogether-container font-regular">
+  <div class="det-product-buytogether font-regular">
+    <BuyTogether>
+  </div>
+</div>
+<div class="CrossSellingFC font-regular">
+ <CrossSelling>
+</div>
+
+<!-- Javascript ZipCode - Description CrossSelling -->
+<script>
+FCLib$.onReady(function(){
+  sF$.fnCustomizeIconsSocialNetworks(true);
+  fnShowCEP(<prodId>);
+  fnShowCEPGrid(<prodId>); /*FC simulação de frete */
+});
+FCGrid$.showVideoGrid("<CodVideoProd>");
+</script>
+
+<script>
+var GridLib_<prodId>$=(function(){
+  var oProdTags={
+    ImagemProdDet:"<prodImgDet>",
+    ImagemProdAmp:"<prodImgAmp>",
+    CorVal:"<colorVal>",
+    CorRGB:"<colorRGB>",
+    IDProduto:<prodId>,
+    CodProd:"<prodRef>",
+    Estoque:<prodStock>,
+    PesoNum:"<weightNum>",
+    PrecoOri:"<prodPriceOri>",
+    PrecoNum:"<prodPriceNum>",
+    MaxParcelasProdNum:<prodMaxInstallmentNum>,
+    Adicional1Val:"<desc1Val>",
+    Adicional2Val:"<desc2Val>",
+    Adicional3Val:"<desc3Val>",
+    AdicionalD1Val:"<descD1Val>",
+    AdicionalD2Val:"<descD2Val>",
+    AdicionalD3Val:"<descD3Val>",
+    NomeAdicional1:"<descName1>",
+    NomeAdicional2:"<descName2>",
+    NomeAdicional3:"<descName3>",
+    NomeAdicionalD1:"<descD1Name>",
+    NomeAdicionalD2:"<descD2Name>",
+    NomeAdicionalD3:"<descD3Name>"
+  };
+
+  var aSubProdTags=[];
+  <sub>
+    aSubProdTags.push({
+      ImagemProdDet:"<prodImgDet>",
+      ImagemProdAmp:"<prodImgAmp>",
+      CorVal:"<colorVal>",
+      CorRGB:"<colorRGB>",
+      IDProduto:<prodId>,
+      CodProd:"<prodRef>",
+      Estoque:<prodStock>,
+      PesoNum:"<weightNum>",
+      PrecoOri:"<prodPriceOri>",
+      PrecoNum:"<prodPriceNum>",
+      MaxParcelasProdNum:<prodMaxInstallmentNum>,
+      Adicional1Val:"<desc1Val>",
+      Adicional2Val:"<desc2Val>",
+      Adicional3Val:"<desc3Val>",
+      AdicionalD1Val:"<descD1Val>",
+      AdicionalD2Val:"<descD2Val>",
+      AdicionalD3Val:"<descD3Val>"
+    });
+  </sub>
+  if(aSubProdTags.length==0)FCGrid$.fnGridAll(oProdTags,aSubProdTags);
+  else FCLib$.onReady(function(){FCGrid$.fnGridAll(oProdTags,aSubProdTags);}); 
+})();
+</script>
+<!-- End: JS scripts grid -->
+</ProdDet>
+
+<ProdAmp><!-- Prod Amp --></ProdAmp>
+<ProdBottom></ProdBottom>
+<!-- estiloproduto.htm : Grid v2 2019  (Store 2) -->
