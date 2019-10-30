@@ -1,0 +1,248 @@
+<!-- estiloproduto.htm : Grid v2 2019  (Store 2) -->
+<ProdTop>
+<style>
+.det-sub-product{margin-top:25px;}
+.det-sub-product-container{margin:10px 0;padding:10px;}
+.det-sub-product-container:nth-child(odd){background:#fcfcfc;}
+.det-sub-product-container:nth-child(even){background:#f4f4f4;}
+.det-sub-product-container-all{display:flex;flex-direction:row}
+.det-sub-product-container-image{width:30%;padding:5px;}
+.det-sub-product-container-image img{width:100%;border:1px solid #e2e2e2;}
+.det-sub-product-container-content{width:70%;padding-left:10px}
+.det-sub-product-container-content div{margin:5px 0;}
+.BotComprar{display:block!important;background:#01bb01;border-radius:5px;color:#ffffff;font-size:1.25rem;width:150px;padding:5px 10px;cursor:pointer;}
+.mz-thumb{margin:0 5px;}
+</style>
+<script>var IsFramePage=false;</script>
+
+<!-- Script Filters -->
+<script>
+iQtdProds=<QtProd>;
+FCLib$.onReady(function(){
+  if(iQtdProds=="1"){
+    //var sPages=sF$.fnGetID("idPageCountFC");
+    if(sPages)sPages.style.display="none";
+  }
+});
+OffsetAutoPagFC=290;
+var bTemSub=false;
+</script>
+
+<div id="filter-offcanvas-overlay" onclick="filterCloseNav();"></div>
+<div id="filterSidenav" class="filter-sidenav font-regular">
+  <div class="closebtn" onclick="filterCloseNav();"><img alt="Close" id="list-filters-close" src="<PathTo file="images/icon-menu-close-filter.svg">" width=35 height=35></div>
+  <div id="ProductsFilterFCMobile" data-include-css="false"></div>
+</div>
+
+<div id="idMobileFilters">
+  <div class="fc-mobile-filters-left" id="fc-mobile-dynamic-filter">
+    <div onclick="filterOpenNav();"><b><var key="list-filters-title"></var></b></div>
+  </div>
+  <div class="fc-mobile-filters-right">
+    <div id="idPagProdTop"></div>
+  </div>
+</div>
+</ProdTop>
+
+<ProdList><!-- Prod List --></ProdList>
+
+<ProdDet>
+<!-- Prod Det -->
+<link rel="stylesheet" type="text/css" href="/js/MagicToolbox/MagicZoomPlusV2/magiczoomplus.css" />
+<script type="text/javascript" src="/js/MagicToolbox/MagicZoomPlusV2/magiczoomplus.js"></script>
+
+<div class="det-product-container">
+  <div id="idBreadcrumb" class="font-regular">
+    <ul>
+      <li><a href="<url-categories>" class="ProductStyleBreadCrumblinkFC"><var key="details-departments-title"></var></a></li>
+      <li><PathCat></li>
+    </ul>
+  </div>
+
+  <br>
+  <div class="det-product-img-name-container-new">
+    <div class="det-product-img-name-container-full-new">
+      <!-- começo :: zoom com várias imagens -->
+      <script>
+      var imgDetAll = "<ImagemProdDet>";
+      var imgAmpAll = "<ImagemProdAmp>";
+      var novoArray = imgDetAll.split(',');
+      var novoArrayAmp = imgAmpAll.split(',');
+      var CountImgDet=novoArray.length;
+      var CountImgAmp=novoArrayAmp.length;
+      
+      if (imgDetAll=="" || imgAmpAll==""){
+        document.write("");
+      }
+      else{
+        if (CountImgDet==CountImgAmp){
+          var FC_MaxImages=CountImgDet-1;
+          MostraZoomImgFC();
+        }
+        else{
+          var FC_MaxImages=0;
+          MostraZoomImgFC();
+        }
+      }
+      
+      function MostraZoomImgFC(){
+        for (var i=0;i<=FC_MaxImages;i++)
+        {
+          if(i==0)
+          {
+             imgDetMini=novoArray[i];
+             imgAmpMini=novoArrayAmp[i];
+             document.write("<a href="+imgAmpMini+" title='<NomeProd>' class='MagicZoom' id='zoom2' data-options='hint:off;selectorTrigger:hover;transitionEffect:false;'><img src="+ imgDetMini +"></a><br>");
+             document.write('<br>');
+             document.write("<a href="+imgAmpMini+" data-zoom-id='zoom2' data-image="+ imgDetMini +"><img src="+ imgDetMini +" width=75 height=65 class=ZoomIMG2></a>");
+          }
+          else{
+                imgDetMini="<BaseLoja>prod/"+novoArray[i];
+                imgAmpMini="<BaseLoja>prod/"+novoArrayAmp[i];
+                document.write("<a href="+imgAmpMini+" data-zoom-id='zoom2' data-image="+ imgDetMini +"><img src="+ imgDetMini +" width=75 height=65 class=ZoomIMG2></a>");
+          }
+        }
+      }
+      </script>
+      <!-- fim :: zoom com várias imagens -->
+    </div>
+    <div class="det-product-img-name-container-two-new">
+      <div class="det-product-release"><prodRelease></div>
+      <div><h1 id="idNameProductGridFC"><prodName></h1></div>
+      <div class="DivProductDet-sku">
+        SKU: <small id="idCodProdGrid"><prodRef></small>
+        <div class="det-product-show-product-review-icons"></div>
+        <script type="text/javascript">
+          iQtdOp=<OpiniaoQtd>;
+          var showQtdReviewStars = document.querySelectorAll(".det-product-show-product-review-icons");
+          for (i = 0; i < showQtdReviewStars.length; i++) {
+            if(iQtdOp==0){showQtdReviewStars[i].innerHTML = "<a href='<url-product-review><prodId>' aria-label='review'><div class='ProductStyleReviewOffBoxFC'><div class='NotaOpiniaoVazio NotaOpiniaoVazio1'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio2'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio3'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio4'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio5'></div><div class='NotaOpiniaoVazio NotaOpiniaoVazio6'></div></div></a>";}
+            else{showQtdReviewStars[i].innerHTML = "<a href='<url-product-review><prodId>' aria-label='review'><div class='ProductStyleReviewOnBoxFC'><div class='ProductStyleReviewStarsOnFC'><prodAverageReviews></div></a><div class='ProductStyleReviewQtyOnFC'>(<a href='#OP' style='text-decoration:none;'><prodReviewsQty></a>)</div></div>";}
+          } 
+        </script>
+      </div>
+      <div class="det-product-filters"><ProdFilters></div>
+      <!-- Stock -->
+      <div class="product-details-show-stock-container">
+        <div id="product-details-show-stock"></div>
+          <script type="text/javascript">
+          FCLib$.onReady(function(){
+            var sStockProduct=<Estoque>;
+            fnGetStockProduct(sStockProduct);});
+          </script>
+      </div>
+      <!-- Date prom -->
+      <div class="product-details-data-prom">
+        <div id="DataProm"></div>
+        <script type="text/javascript">
+        var sDateTime="<DataPromFim>";
+        FCLib$.onReady(function(){fnShowDateProm(sDateTime);});
+        </script>
+      </div>
+      <div>
+        
+      <div class="det-sub-product">
+        <Sub>
+          <div class="det-sub-product-container">
+            <FormProd>
+              <div class="det-sub-product-container-all">
+                <div class="det-sub-product-container-image">
+                  <img src="<ImagemProdPri>" alt="<CodProd>">
+                </div>
+                <div class="det-sub-product-container-content">
+                  <div><prodName></div>
+                  <div><CodProd></div>
+                  <div><PrecoSimples></div>
+                  <div><Adicional1></div>
+                  <div><Adicional2></div>
+                  <div><Adicional3></div>
+                  <div><AdicionalD1></div>
+                  <div><AdicionalD2></div>
+                  <div><AdicionalD3></div>
+                  <div><Cor></div>
+                  <div><LinkComprar></div>
+                </div>
+              </div>
+            </FormProd>
+          </div>
+        </Sub>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="det-product-fixed-remove" id="det-product-fixed-remove"></div>
+
+<!-- Javascript ZipCode - Description CrossSelling -->
+<script>
+FCLib$.onReady(function(){
+  sF$.fnCustomizeIconsSocialNetworks(true);
+  fnShowCEP(<prodId>);
+  fnShowCEPGrid(<prodId>); /*FC simulação de frete */
+});
+//FCGrid$.showVideoGrid("<CodVideoProd>");
+</script>
+
+<!--<script>
+var GridLib_<prodId>$=(function(){
+  var oProdTags={
+    ImagemProdDet:"<prodImgDet>",
+    ImagemProdAmp:"<prodImgAmp>",
+    CorVal:"<colorVal>",
+    CorRGB:"<colorRGB>",
+    IDProduto:<prodId>,
+    CodProd:"<prodRef>",
+    Estoque:<prodStock>,
+    PesoNum:"<weightNum>",
+    PrecoOri:"<prodPriceOri>",
+    PrecoNum:"<prodPriceNum>",
+    MaxParcelasProdNum:<prodMaxInstallmentNum>,
+    Adicional1Val:"<desc1Val>",
+    Adicional2Val:"<desc2Val>",
+    Adicional3Val:"<desc3Val>",
+    AdicionalD1Val:"<descD1Val>",
+    AdicionalD2Val:"<descD2Val>",
+    AdicionalD3Val:"<descD3Val>",
+    NomeAdicional1:"<descName1>",
+    NomeAdicional2:"<descName2>",
+    NomeAdicional3:"<descName3>",
+    NomeAdicionalD1:"<descD1Name>",
+    NomeAdicionalD2:"<descD2Name>",
+    NomeAdicionalD3:"<descD3Name>"
+  };
+
+  var aSubProdTags=[];
+  <sub>
+    aSubProdTags.push({
+      ImagemProdDet:"<prodImgDet>",
+      ImagemProdAmp:"<prodImgAmp>",
+      CorVal:"<colorVal>",
+      CorRGB:"<colorRGB>",
+      IDProduto:<prodId>,
+      CodProd:"<prodRef>",
+      Estoque:<prodStock>,
+      PesoNum:"<weightNum>",
+      PrecoOri:"<prodPriceOri>",
+      PrecoNum:"<prodPriceNum>",
+      MaxParcelasProdNum:<prodMaxInstallmentNum>,
+      Adicional1Val:"<desc1Val>",
+      Adicional2Val:"<desc2Val>",
+      Adicional3Val:"<desc3Val>",
+      AdicionalD1Val:"<descD1Val>",
+      AdicionalD2Val:"<descD2Val>",
+      AdicionalD3Val:"<descD3Val>"
+    });
+  </sub>
+  if(aSubProdTags.length==0)FCGrid$.fnGridAll(oProdTags,aSubProdTags);
+  else FCLib$.onReady(function(){FCGrid$.fnGridAll(oProdTags,aSubProdTags);}); 
+})();
+</script>-->
+<!-- End: JS scripts grid -->
+</ProdDet>
+
+<ProdAmp><!-- Prod Amp --></ProdAmp>
+<ProdBottom></ProdBottom>
+<!-- estiloproduto.htm : Grid v2 2019  (Store 2) -->
