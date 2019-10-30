@@ -1,0 +1,147 @@
+<div id="StepCheckout"></div>
+<div class="FCCheckoutLogin"><Login></div>
+<div class="FCCheckoutMain">  
+  <div id="idChkCol1FC" class="FCRegisterChk">
+    <Register>
+  </div>
+  <div id="idChkCol2FC" class="FCFreightChk">
+    <span id="idChkIniCol2FC"></span>
+    <div id="idChkTagsCol2FC"><OrderCompletion><Freight><Payment></div>
+  </div>
+  <div id="idChkCol3FC" class="FCCartChk"><Cart></div>
+  <div id="idChkBottomFC"></div>
+</div>
+<div id="idChkBottomFC" class="FCChkOrderConfirmationFloat"><OrderConfirmation></div>
+<script>
+var bShowCupomCheckout=true;
+
+function FuncChkRegisterEnd(){
+  if(F$.Step==2){
+    window.onscroll=null;
+    document.getElementById('idChkTagsCol2FC').style.position='relative';
+    document.getElementById('idChkExtCartFC').style.position='relative';
+    document.getElementById('idTitCartFC').classList.add("remove-step-four");
+  }
+  else if(F$.Step==1){
+    if(bShowCupomCheckout)fnShowCupom();
+    setTimeout(function(){SaveCart$.fnShowSaveCart();},800);
+    fnInsertMask();
+  }
+  fnShowStep(F$.Step);
+}
+
+//#############################################
+// Input masks
+//#############################################
+FCLib$.fnLoadScript(FC$.PathHtm+'js/vanilla-masker-min.js',true);
+
+function fnInsertMask(){
+  //Telefone
+  if(oFCLib.PhoneCheck>0){
+    var oP2Telefone=document.getElementById('P2Telefone');
+    if(oP2Telefone){
+      if(oFCLib.PhoneCheck==1 || oFCLib.PhoneCheck==3 || oFCLib.PhoneCheck==4){
+        var oTelefoneMask=['(99) 9999-99999','(99) 99999-9999'];
+      }else if(oFCLib.PhoneCheck==2){
+        var oTelefoneMask=['+ 99 99 9999-99999','+ 99 99 99999-9999'];
+      }
+      VMasker(oP2Telefone).maskPattern(oTelefoneMask[0]);
+      oP2Telefone.addEventListener('input',inputHandler.bind(undefined,oTelefoneMask,14),false);
+    }
+  }
+  //CPF
+  var oP2CPF=document.getElementById('P2CPF');
+  if(oP2CPF){
+    var oCPFMask=['999.999.999-999','99.999.999/9999-99'];
+    VMasker(oP2CPF).maskPattern(oCPFMask[0]);
+    oP2CPF.addEventListener('input',inputHandler.bind(undefined,oCPFMask,14),false);
+  }
+  //Data nascimento
+  var oP2DataNasc=document.getElementById('P2DataNasc');
+  if(oP2DataNasc){
+    var oDataNascMask=['99/99/9999'];
+    VMasker(oP2DataNasc).maskPattern(oDataNascMask[0]);
+    oP2DataNasc.addEventListener('input',inputHandler.bind(undefined,oDataNascMask,14),false);
+  }
+}
+
+function inputHandler(masks, max, event) {
+	var c=event.target;
+	var v=c.value.replace(/\D/g,'');
+	var m=c.value.length>max?1:0;
+	VMasker(c).unMask();
+	VMasker(c).maskPattern(masks[m]);
+	c.value=VMasker.toPattern(v,masks[m]);
+}
+//#############################################
+
+function fnShowStep(iStep){
+  var oSteps=F$.GetID("StepCheckout");
+  if(oSteps){
+    var sContStep="";
+    if(iStep==0)sContStep="<ul class='fc-checkout-steps fc-checkout-steps-arrow'><li class='fc-checkout-steps-current'><em>"+ rk("checkout-steps-identification") +"</em></a></li><li><a href='#'>"+ rk("checkout-steps-payment") +"</a></li><li><a href='#'>"+ rk("checkout-steps-confirmation") +"</a></li></ul>";
+    else if(iStep==1)sContStep="<ul class='fc-checkout-steps fc-checkout-steps-arrow'><li><a href='#'>"+ rk("checkout-steps-identification") +"</a></li><li class='fc-checkout-steps-current'><em>"+ rk("checkout-steps-payment") +"</em></li><li><a href='#'>"+ rk("checkout-steps-confirmation") +"</a></li></ul>";
+    else if(iStep==2)sContStep="<ul class='fc-checkout-steps fc-checkout-steps-arrow'><li><a href='#'>"+ rk("checkout-steps-identification") +"</a></li><li><a href='#'>"+ rk("checkout-steps-payment") +"</a></li><li class='fc-checkout-steps-current'><em>"+ rk("checkout-steps-confirmation") +"</em></li></ul>";
+    oSteps.innerHTML=sContStep;
+  }
+}
+
+function FuncChkRegisterBegin(){
+  if(F$.Step==1 && (F$.FreightValue=='' || F$.FreightValue==null)){
+    F$.GetID("idChkPaymentFC").innerHTML="<div id=idChkPaymentIntFC class=EstChkDiv><div id=idTitPaymentFC class=EstTitCheckoutFC>"+ rk("checkout-steps-payment-title") +"</div><p>"+ rk("checkout-steps-payment-text") +"</p></div>";
+  }
+  if(F$.Step==1){
+   document.getElementById('idChkBottomFC').style.position='fixed';
+   document.getElementById('idChkBottomFC').style.bottom='0px!important';
+  }
+}
+
+function FuncChkCartEnd(){
+  if(bShowCupomCheckout && F$.Step==1)fnShowCupom();
+  if(F$.Step==1)setTimeout(function(){SaveCart$.fnShowSaveCart();},800);
+}
+
+function fnShowCupom(){
+  var oCupom=document.getElementById("idCupom");
+  var oDivCupom=document.getElementById("DivCupom");
+  if(!oCupom && !oDivCupom && F$.Step==1){
+    var oInsert=document.getElementById("idCartItemsFC");
+    if(oInsert){
+      var oNewElement=document.createElement("tr");
+      oNewElement.setAttribute("id","CupomCheckout");
+      oNewElement.innerHTML="<td colspan='2' class='EstTabPedidoTotal'><div id='DivCupom'><div class='FCCartCupomLabel-checkout'>"+ rk("checkout-enter-coupon-title") +":</div><div class='FCCartCupomInputCheckout'><input type='text' name='"+ (FCLib$.fnUseEHC()?"coupon":"cupom") +"' id='Cupom' maxlength='30' class='FCCartCupomInput'><button id='FCCartCupomButCheckout' onclick='fnCupomApply()'>"+ rk("checkout-enter-coupon-button") +"</button></div></div></td>";
+      fnInsertAfter(oNewElement,oInsert);
+    }
+  }
+}
+
+function fnCupomApply(){
+  var oCupom=document.getElementById("Cupom");
+  if(oCupom){
+    var sCupom=oCupom.value;
+    if(sCupom!=""){AjaxExecFC(FCLib$.uk("url-contact"),(FCLib$.fnUseEHC()?"coupon":"cupom")+"="+ sCupom,false,fnCallBackCupom);}
+  }
+}
+
+function fnCallBackCupom(){
+  F$.fnUpdateCart();
+  setTimeout(
+    function(){
+      var oCupom=document.getElementById("idCupom");
+      if(!oCupom){
+        var oDivCupom=document.getElementById("DivCupom");
+        if(oDivCupom){
+          var oNewElement=document.createElement("div");
+          oNewElement.setAttribute("id","MsgErrCupom");
+          oNewElement.innerHTML="<div style='color:#FF0000;padding:5px;font-size:13px;'>"+ rk("checkout-enter-invalid-coupon") +"</div>";
+          fnInsertAfter(oNewElement,oDivCupom);
+        }
+      }
+    }
+  ,500); 
+}
+
+function fnInsertAfter(newNode,referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode,referenceNode.nextSibling);
+}
+</script>
